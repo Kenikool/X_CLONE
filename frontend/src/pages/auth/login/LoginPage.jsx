@@ -5,7 +5,7 @@ import XSvg from "../../../components/svgs/X";
 
 import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
@@ -14,6 +14,7 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
+  const queryClient = useQueryClient();
   const {
     mutate: loginMutation,
     isPending,
@@ -42,6 +43,10 @@ const LoginPage = () => {
     },
     onSuccess: () => {
       toast.success("Logged in successful");
+      // refetch the authUser
+      queryClient.invalidateQueries({
+        queryKey: ["authUser"],
+      });
     },
   });
 
