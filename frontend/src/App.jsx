@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { data, Navigate, Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
@@ -28,12 +28,13 @@ function App() {
       } catch (error) {
         throw new Error(error.message);
       }
+      return data;
     },
   });
 
   if (isLoading) {
     return (
-      <div className="h-screen grid place-content-center ml-[10rem]">
+      <div className="h-screen grid place-content-center">
         <LoadingSpinner size="lg" />
       </div>
     );
